@@ -46,6 +46,7 @@ public class ListOfNotesFragment extends Fragment {
         if (getArguments() != null) {
             currentNote = getArguments().getInt(CURRENT_NOTE);
         }
+
         initListOfNotes(view);
     }
 
@@ -80,11 +81,25 @@ public class ListOfNotesFragment extends Fragment {
     }
 
     private void showOneNote(NoteData note) {
-        NoteFragment noteFragment = NoteFragment.newInstance(note);
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, noteFragment)
-                .commit();
+
+        if (Utils.isLandscape(getResources())) {
+            NoteFragment noteFragment = NoteFragment.newInstance(note);
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_note, noteFragment)
+                    .addToBackStack("")
+                    .commit();
+
+        }
+        else {
+            NoteFragment noteFragment = NoteFragment.newInstance(note);
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, noteFragment)
+                    .addToBackStack("")
+                    .commit();
+
+        }
     }
 
 }

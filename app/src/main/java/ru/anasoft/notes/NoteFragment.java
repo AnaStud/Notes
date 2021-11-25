@@ -39,8 +39,9 @@ public class NoteFragment extends Fragment {
 
         if (getArguments() != null) {
             noteData = getArguments().getParcelable(ARG_NOTE_DATA);
+            initNote(view);
         }
-        initNote(view);
+
     }
 
     private void initNote(View view) {
