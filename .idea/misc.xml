@@ -5,8 +5,11 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/Android1/Notes/app/src/main/res/layout-land/activity_main.xml" value="0.2310405643738977" />
         <entry key="..\:/AndroidStudioProjects/Android1/Notes/app/src/main/res/layout/activity_main.xml" value="0.14270833333333333" />
+        <entry key="..\:/AndroidStudioProjects/Android1/Notes/app/src/main/res/layout/fragment_about.xml" value="0.25905797101449274" />
+        <entry key="..\:/AndroidStudioProjects/Android1/Notes/app/src/main/res/layout/fragment_groups.xml" value="0.25905797101449274" />
         <entry key="..\:/AndroidStudioProjects/Android1/Notes/app/src/main/res/layout/fragment_list_of_notes.xml" value="0.24139492753623187" />
         <entry key="..\:/AndroidStudioProjects/Android1/Notes/app/src/main/res/layout/fragment_note.xml" value="0.24547101449275363" />
+        <entry key="..\:/AndroidStudioProjects/Android1/Notes/app/src/main/res/layout/fragment_settings.xml" value="0.25905797101449274" />
       </map>
     </option>
   </component>
