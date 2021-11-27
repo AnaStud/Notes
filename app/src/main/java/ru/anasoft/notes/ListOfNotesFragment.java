@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
@@ -61,6 +62,27 @@ public class ListOfNotesFragment extends Fragment {
 
         LinearLayout layout = (LinearLayout) view;
 
+        //region Меню с переходом на другие фрагменты
+        LinearLayout menu = new LinearLayout(getContext());
+        menu.setOrientation(LinearLayout.HORIZONTAL);
+        layout.addView(menu);
+
+        Button buttonGroups = new Button(getContext());
+        buttonGroups.setText("Группы");
+        menu.addView(buttonGroups);
+        buttonGroups.setOnClickListener(v -> showGroups());
+
+        Button buttonSettings = new Button(getContext());
+        buttonSettings.setText("Настройки");
+        menu.addView(buttonSettings);
+        buttonSettings.setOnClickListener(v -> showSettings());
+
+        Button buttonAbout = new Button(getContext());
+        buttonAbout.setText("О приложении");
+        menu.addView(buttonAbout);
+        buttonAbout.setOnClickListener(v -> showAbout());
+        //endregion
+
         for(NoteData note : notes){
 
             TextView noteDate = new TextView(getContext());
@@ -71,12 +93,12 @@ public class ListOfNotesFragment extends Fragment {
             noteName.setText(note.getName());
             noteName.setTextSize(24);
             layout.addView(noteName);
+            noteName.setOnClickListener(v -> showOneNote(note));
 
             TextView space = new TextView(getContext());
             space.setText("");
             layout.addView(space);
 
-            noteName.setOnClickListener(v -> showOneNote(note));
         }
     }
 
@@ -89,7 +111,6 @@ public class ListOfNotesFragment extends Fragment {
                     .replace(R.id.fragment_container_note, noteFragment)
                     .addToBackStack("")
                     .commit();
-
         }
         else {
             NoteFragment noteFragment = NoteFragment.newInstance(note);
@@ -98,7 +119,63 @@ public class ListOfNotesFragment extends Fragment {
                     .replace(R.id.fragment_container, noteFragment)
                     .addToBackStack("")
                     .commit();
+        }
+    }
 
+    private void showGroups() {
+        if (Utils.isLandscape(getResources())) {
+            GroupsFragment groupsFragment = new GroupsFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_note, groupsFragment)
+                    .addToBackStack("")
+                    .commit();
+        }
+        else {
+            GroupsFragment groupsFragment = new GroupsFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, groupsFragment)
+                    .addToBackStack("")
+                    .commit();
+        }
+    }
+
+    private void showSettings() {
+        if (Utils.isLandscape(getResources())) {
+            SettingsFragment settingsFragment = new SettingsFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_note, settingsFragment)
+                    .addToBackStack("")
+                    .commit();
+        }
+        else {
+            SettingsFragment settingsFragment = new SettingsFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, settingsFragment)
+                    .addToBackStack("")
+                    .commit();
+        }
+    }
+
+    private void showAbout() {
+        if (Utils.isLandscape(getResources())) {
+            AboutFragment aboutFragment = new AboutFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_note, aboutFragment)
+                    .addToBackStack("")
+                    .commit();
+        }
+        else {
+            AboutFragment aboutFragment = new AboutFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, aboutFragment)
+                    .addToBackStack("")
+                    .commit();
         }
     }
 
