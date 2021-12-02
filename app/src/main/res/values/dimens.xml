@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding">16dp</dimen>
+    <dimen name="textSizeHeader">35sp</dimen>
+    <dimen name="sizeIcon">100dp</dimen>
+    <dimen name="sizeHeader">200dp</dimen>
 </resources>

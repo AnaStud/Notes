@@ -1,9 +1,17 @@
 package ru.anasoft.notes;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,32 +20,97 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("MainActivity", "onCreate");
+        initToolbarAndDrawer();
+
+        showFragments();
+    }
+
+    private void showFragments() {
 
         if (Utils.isLandscape(getResources())) {
-            Log.d("MainActivity", "isLandscape");
 
             ListOfNotesFragment listOfNotesFragment = new ListOfNotesFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container_list, listOfNotesFragment)
-                    .commit();
+            replaceFragmentContainer(listOfNotesFragment, R.id.fragment_container_list);
 
             NoteFragment noteFragment = new NoteFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container_note, noteFragment)
-                    .commit();
+            replaceFragmentContainer(noteFragment, R.id.fragment_container_note);
         }
         else {
-            Log.d("MainActivity", "isPortrait");
-
             ListOfNotesFragment listOfNotesFragment = new ListOfNotesFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, listOfNotesFragment)
-                    .commit();
-
+            replaceFragmentContainer(listOfNotesFragment, R.id.fragment_container);
         }
     }
+
+    private void initToolbarAndDrawer() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        initDrawer(toolbar);
+    }
+
+    private void initDrawer(Toolbar toolbar) {
+
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(
+                item -> {
+                    int id = item.getItemId();
+                    switch (id) {
+                        case R.id.action_drawer_groups:
+                            openGroupsFragment();
+                            drawer.closeDrawers();
+                            return true;
+                        case R.id.action_drawer_settings:
+                            openSettingsFragment();
+                            drawer.closeDrawers();
+                            return true;
+                        case R.id.action_drawer_about:
+                            openAboutFragment();
+                            drawer.closeDrawers();
+                            return true;
+                    }
+                    return false;
+                });
+    }
+
+    private void openGroupsFragment() {
+        GroupsFragment groupsFragment = new GroupsFragment();
+        choiceContainer(groupsFragment);
+    }
+
+    private void openSettingsFragment() {
+        SettingsFragment settingsFragment = new SettingsFragment();
+        choiceContainer(settingsFragment);
+    }
+
+    private void openAboutFragment() {
+        AboutFragment aboutFragment = new AboutFragment();
+        choiceContainer(aboutFragment);
+    }
+
+    private void choiceContainer(Fragment fragment) {
+
+        if (Utils.isLandscape(getResources())) {
+            replaceFragmentContainer(fragment, R.id.fragment_container_note);
+        }
+        else {
+            replaceFragmentContainer(fragment, R.id.fragment_container);
+        }
+    }
+
+    private void replaceFragmentContainer(Fragment fragment, int container) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(container, fragment)
+                .addToBackStack("")
+                .commit();
+    }
+
 }
