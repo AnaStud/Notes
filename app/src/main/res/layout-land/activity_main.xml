@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:subtitle="List of notes"
+                app:subtitle="@string/listOfNotes"
                 app:subtitleTextColor="@color/white"
                 app:title="@string/app_name"
                 app:titleTextColor="@color/white" />
@@ -41,7 +41,7 @@
                 />
 
             <FrameLayout
-                android:id="@+id/fragment_container_note"
+                android:id="@+id/fragment_container"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"

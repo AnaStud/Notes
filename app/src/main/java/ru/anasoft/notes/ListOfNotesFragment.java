@@ -1,9 +1,11 @@
 package ru.anasoft.notes;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +17,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -86,23 +91,12 @@ public class ListOfNotesFragment extends Fragment {
     }
 
     private void showOneNote(NoteData note) {
-
-        if (Utils.isLandscape(getResources())) {
-            NoteFragment noteFragment = NoteFragment.newInstance(note);
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container_note, noteFragment)
-                    .addToBackStack("")
-                    .commit();
-        }
-        else {
-            NoteFragment noteFragment = NoteFragment.newInstance(note);
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, noteFragment)
-                    .addToBackStack("")
-                    .commit();
-        }
+        NoteFragment noteFragment = NoteFragment.newInstance(note);
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, noteFragment)
+                .addToBackStack("")
+                .commit();
     }
 
 }

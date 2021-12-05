@@ -1,15 +1,14 @@
 package ru.anasoft.notes;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void showFragments() {
 
-        if (Utils.isLandscape(getResources())) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
             ListOfNotesFragment listOfNotesFragment = new ListOfNotesFragment();
             replaceFragmentContainer(listOfNotesFragment, R.id.fragment_container_list);
 
             NoteFragment noteFragment = new NoteFragment();
-            replaceFragmentContainer(noteFragment, R.id.fragment_container_note);
+            replaceFragmentContainer(noteFragment, R.id.fragment_container);
         }
         else {
             ListOfNotesFragment listOfNotesFragment = new ListOfNotesFragment();
@@ -63,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 item -> {
                     int id = item.getItemId();
                     switch (id) {
-                        case R.id.action_drawer_groups:
-                            openGroupsFragment();
+                        case R.id.action_drawer_new:
+                            //showТoast();
+                            openNewNoteFragment();
                             drawer.closeDrawers();
                             return true;
                         case R.id.action_drawer_settings:
@@ -80,29 +80,19 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void openGroupsFragment() {
-        GroupsFragment groupsFragment = new GroupsFragment();
-        choiceContainer(groupsFragment);
+    private void openNewNoteFragment() {
+        NewNoteFragment newNoteFragment = new NewNoteFragment();
+        replaceFragmentContainer(newNoteFragment, R.id.fragment_container);
     }
 
     private void openSettingsFragment() {
         SettingsFragment settingsFragment = new SettingsFragment();
-        choiceContainer(settingsFragment);
+        replaceFragmentContainer(settingsFragment, R.id.fragment_container);
     }
 
     private void openAboutFragment() {
         AboutFragment aboutFragment = new AboutFragment();
-        choiceContainer(aboutFragment);
-    }
-
-    private void choiceContainer(Fragment fragment) {
-
-        if (Utils.isLandscape(getResources())) {
-            replaceFragmentContainer(fragment, R.id.fragment_container_note);
-        }
-        else {
-            replaceFragmentContainer(fragment, R.id.fragment_container);
-        }
+        replaceFragmentContainer(aboutFragment, R.id.fragment_container);
     }
 
     private void replaceFragmentContainer(Fragment fragment, int container) {
