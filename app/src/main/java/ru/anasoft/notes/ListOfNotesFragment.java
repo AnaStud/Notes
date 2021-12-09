@@ -1,102 +1,43 @@
 package ru.anasoft.notes;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Space;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import ru.anasoft.notes.data.NotesData;
+import ru.anasoft.notes.data.NotesSource;
+import ru.anasoft.notes.ui.NotesAdapter;
 
 public class ListOfNotesFragment extends Fragment {
-
-    private static final String CURRENT_NOTE = "currentNote";
-    private int currentNote;
-
-    public static ListOfNotesFragment newInstance(int currentNote) {
-        ListOfNotesFragment fragment = new ListOfNotesFragment();
-        Bundle args = new Bundle();
-        args.putInt(CURRENT_NOTE, currentNote);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list_of_notes, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_of_notes, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_list);
+        NotesSource data = new NotesData().init();
+        initListOfNotes(recyclerView, data);
+        return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void initListOfNotes(RecyclerView recyclerView, NotesSource data) {
+        recyclerView.setHasFixedSize(true);
 
-        if (getArguments() != null) {
-            currentNote = getArguments().getInt(CURRENT_NOTE);
-        }
+        NotesAdapter adapter = new NotesAdapter(data);
+        recyclerView.setAdapter(adapter);
 
-        initListOfNotes(view);
+        adapter.setOnItemClickListener((view, position) -> {
+            Toast.makeText(getContext(),
+                    data.getNoteData(position).getNote(),
+                    Toast.LENGTH_SHORT).show();
+        });
     }
-
-    private void initListOfNotes(View view) {
-
-        //TODO заменить на массив заметок
-        NoteData[] notes = new NoteData[4];
-        notes[0] = new NoteData("Заметка 1", new Date(), "Белеет парус одинокий");
-        notes[1] = new NoteData("Заметка 2", new Date(), "В тумане моря голубом.");
-        notes[2] = new NoteData("Заметка 3", new Date(), "Что ищет он в стране далёкой?");
-        notes[3] = new NoteData("Заметка 4", new Date(), "Что кинул он в краю родном?");
-
-        LinearLayout layout = (LinearLayout) view;
-
-        TextView spaceHeader = new TextView(getContext());
-        spaceHeader.setText("");
-        layout.addView(spaceHeader);
-
-        for(NoteData note : notes){
-
-            TextView noteDate = new TextView(getContext());
-            noteDate.setText(note.getDate());
-            layout.addView(noteDate);
-
-            TextView noteName = new TextView(getContext());
-            noteName.setText(note.getName());
-            noteName.setTextSize(24);
-            layout.addView(noteName);
-            noteName.setOnClickListener(v -> showOneNote(note));
-
-            TextView space = new TextView(getContext());
-            space.setText("");
-            layout.addView(space);
-
-        }
-    }
-
-    private void showOneNote(NoteData note) {
-        NoteFragment noteFragment = NoteFragment.newInstance(note);
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, noteFragment)
-                .addToBackStack("")
-                .commit();
-    }
-
 }

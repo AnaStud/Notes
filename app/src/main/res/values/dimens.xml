@@ -4,4 +4,10 @@
     <dimen name="textSizeHeader">35sp</dimen>
     <dimen name="sizeIcon">100dp</dimen>
     <dimen name="sizeHeader">200dp</dimen>
+    <dimen name="textSize">30sp</dimen>
+    <dimen name="radius">15dp</dimen>
+    <dimen name="elevation">5dp</dimen>
+    <dimen name="textSizeDate">16sp</dimen>
+    <dimen name="textSizeName">24sp</dimen>
+    <dimen name="textSizeNote">20sp</dimen>
 </resources>
