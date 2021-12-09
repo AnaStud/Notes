@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Date;
+import ru.anasoft.notes.data.NoteData;
 
 public class NoteFragment extends Fragment {
 

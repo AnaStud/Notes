@@ -1,4 +1,4 @@
-package ru.anasoft.notes;
+package ru.anasoft.notes.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 public final class NoteData implements Parcelable {
 
-    private String name;
     private Date date;
+    private String name;
     private String note;
 
-    public NoteData(String name, Date date, String note) {
-        this.name = name;
+    public NoteData(Date date, String name, String note) {
         this.date = date;
+        this.name = name;
         this.note = note;
     }
 
