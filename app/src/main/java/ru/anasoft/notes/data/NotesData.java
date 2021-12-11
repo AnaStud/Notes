@@ -16,6 +16,7 @@ public class NotesData implements NotesSource {
     public NotesSource init(){
 
         Date today = new Date();
+/*
         //TODO заменить на массив заметок
         dataSource.add(new NoteData(today, "Заметка 1", "Белеет парус одинокий"));
         dataSource.add(new NoteData(today, "Заметка 2", "В тумане моря голубом."));
@@ -29,6 +30,7 @@ public class NotesData implements NotesSource {
         dataSource.add(new NoteData(today, "Заметка 10", "Над ним - луч солнца золотой,"));
         dataSource.add(new NoteData(today, "Заметка 11", "А он, мятежный, просит бури,"));
         dataSource.add(new NoteData(today, "Заметка 12", "Как будто в бурях есть покой."));
+*/
 
         return this;
     }
@@ -41,5 +43,10 @@ public class NotesData implements NotesSource {
     @Override
     public int size() {
         return dataSource.size();
+    }
+
+    @Override
+    public void addNoteData(NoteData noteData) {
+        dataSource.add(noteData);
     }
 }
