@@ -9,16 +9,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class NewNoteFragment extends Fragment {
+import java.util.Date;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+import ru.anasoft.notes.data.NoteData;
+
+public class NewNoteFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,8 +30,24 @@ public class NewNoteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.button_add).setOnClickListener(v -> {
-            //Toast.makeText(requireActivity(), "Добавлено", Toast.LENGTH_LONG).show();
+
+            EditText editTextNameNote = requireActivity().findViewById(R.id.editText_nameNote);
+            String nameNote = editTextNameNote.getText().toString();
+            EditText editTextNote = requireActivity().findViewById(R.id.editText_note);
+            String note = editTextNote.getText().toString();
+
+            NoteData noteData = new NoteData(new Date(), nameNote, note);
+
+            Bundle result = new Bundle();
+            result.putParcelable("ONE_NOTE", noteData);
+            getParentFragmentManager().setFragmentResult("MY_NOTE", result);
+
             Snackbar.make(view, "Добавлено", Snackbar.LENGTH_LONG).show();
+
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .popBackStack ();
+
         });
     }
 }
