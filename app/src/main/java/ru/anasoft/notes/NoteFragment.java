@@ -9,8 +9,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import ru.anasoft.notes.data.NoteData;
 
@@ -19,7 +23,7 @@ public class NoteFragment extends Fragment {
     private static final String ARG_NOTE_DATA = "noteData";
     private NoteData noteData;
 
-     public static NoteFragment newInstance(NoteData note) {
+    public static NoteFragment newInstance(NoteData note) {
         NoteFragment fragment = new NoteFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_NOTE_DATA, note);
@@ -63,4 +67,5 @@ public class NoteFragment extends Fragment {
         layout.addView(noteNote);
 
     }
+
 }
