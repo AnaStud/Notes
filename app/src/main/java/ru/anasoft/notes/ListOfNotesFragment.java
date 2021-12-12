@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import ru.anasoft.notes.data.NoteData;
 import ru.anasoft.notes.data.NotesData;
 import ru.anasoft.notes.data.NotesSource;
+import ru.anasoft.notes.data.NotesSourceFirebase;
+import ru.anasoft.notes.data.NotesSourceResponse;
 import ru.anasoft.notes.ui.NotesAdapter;
 
 public class ListOfNotesFragment extends Fragment {
@@ -31,7 +34,13 @@ public class ListOfNotesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_of_notes, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_list);
-        data = new NotesData().init();
+
+        data = new NotesSourceFirebase().init(new NotesSourceResponse() {
+            @Override
+            public void initialized(NotesSource notesData) {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         initListOfNotes(recyclerView, data);
 
@@ -43,7 +52,8 @@ public class ListOfNotesFragment extends Fragment {
     private void initListOfNotes(RecyclerView recyclerView, NotesSource data) {
         recyclerView.setHasFixedSize(true);
 
-        adapter = new NotesAdapter(data, this);
+        adapter = new NotesAdapter(this);
+        adapter.setDataSource(data);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener((view, position) -> {

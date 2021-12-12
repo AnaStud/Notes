@@ -22,9 +22,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private OnItemClickListener itemClickListener;
     private final Fragment fragment;
 
-    public NotesAdapter(NotesSource dataSource, Fragment fragment){
-        this.dataSource = dataSource;
+    public NotesAdapter(Fragment fragment){
         this.fragment = fragment;
+    }
+
+    public void setDataSource(NotesSource dataSource){
+        this.dataSource = dataSource;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -41,6 +45,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
+        if (dataSource == null) {
+            return 0;
+        }
         return dataSource.size();
     }
 

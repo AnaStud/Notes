@@ -13,6 +13,7 @@ public final class NoteData implements Parcelable {
     private Date date;
     private String name;
     private String note;
+    private String id;
 
     public NoteData(Date date, String name, String note) {
         this.date = date;
@@ -57,6 +58,10 @@ public final class NoteData implements Parcelable {
         return df.format(date);
     }
 
+    public Date getOriginDate() {
+        return date;
+    }
+
     public String getNote() {
         return note;
     }
@@ -67,4 +72,11 @@ public final class NoteData implements Parcelable {
         return name + " (" + date + ")\n" + note;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

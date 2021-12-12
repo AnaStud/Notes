@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1010344984301",
+    "project_id": "notes-8079e",
+    "storage_bucket": "notes-8079e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010344984301:android:1d635332b940e478f6d6e4",
+        "android_client_info": {
+          "package_name": "ru.anasoft.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010344984301-0fehesvpgvkojinee7s16m9lhpolat4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSXhDlnRGOFkHZaGJzHO7ojA0QDyJ3HV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010344984301-0fehesvpgvkojinee7s16m9lhpolat4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
